@@ -112,8 +112,8 @@ class settings():
     # If you leave a stage empty, you will be asked to input a target_error during runtime
     # Remove all entries if you want to be asked at each stage
     default_target_error = {1: 1.0,
-                            2: 0.2,
-                            3: 0.05}
+                            2: 0.05,
+                            3: 0.02}
 
     # Profile grabbing method to determine the "best" profiles when going from stage to stage.
     # There are 2 modes available:
@@ -134,7 +134,7 @@ class settings():
 
     # Number of profiles to grab with method 'top_n', in reverse order
     # This means -1: represents the last stage, while -2: is for the next_to_last stage, etc.
-    default_top_n = {-1: 1,
+    default_top_n = {-1: 3,
                      -2: 100,
                      -3: 1000,
                      -4: 10000}
@@ -218,7 +218,7 @@ class settings():
     # ALL OPTIONS BELOW THIS VARIABLE ARE AFFECTED BY THIS SWITCH!!!
     #               YOU HAVE TO KNOW WHAT YOU DO!
     # ----------------------------------------------------------------------
-    skip_questions = False
+    skip_questions = True
 
     # automation of dialogs
     # 1 or 2
