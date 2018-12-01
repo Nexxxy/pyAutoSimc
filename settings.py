@@ -57,7 +57,7 @@ class settings():
     # depending on simulation-parameters
     # Splitting into too small sets will generate a lot of temporary files on disk and slow things down
     # Too large split size will require large amounts of memory for SimulationCraft and slow down the simulation.
-    splitting_size = 50
+    splitting_size = 150
 
     # Default sim start stage. Valid options: "permutate_only", "all", "stage1", "stage2", "stage3", ...
     # 'permutate_only' will only generate profile combinations.
@@ -79,7 +79,7 @@ class settings():
     num_stages = 3
 
     # Automatic delete of the temp folders
-    delete_temp_default = False
+    delete_temp_default = True
 
     # set to False if you want to keep intermediate files
     # moves the final .html-result into the specified subfolder before deletion
@@ -112,8 +112,8 @@ class settings():
     # If you leave a stage empty, you will be asked to input a target_error during runtime
     # Remove all entries if you want to be asked at each stage
     default_target_error = {1: 1.0,
-                            2: 0.2,
-                            3: 0.05}
+                            2: 0.1,
+                            3: 0.03}
 
     # Profile grabbing method to determine the "best" profiles when going from stage to stage.
     # There are 2 modes available:
@@ -134,9 +134,9 @@ class settings():
 
     # Number of profiles to grab with method 'top_n', in reverse order
     # This means -1: represents the last stage, while -2: is for the next_to_last stage, etc.
-    default_top_n = {-1: 1,
-                     -2: 100,
-                     -3: 1000,
+    default_top_n = {-1: 3,
+                     -2: 25,
+                     -3: 100,
                      -4: 10000}
 
     # Error Rate Multiplier / Confidence Range

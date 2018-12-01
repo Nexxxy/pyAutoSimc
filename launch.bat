@@ -10,6 +10,8 @@ IF ERRORLEVEL 1 (
     ECHO --Please add Python-Path to your Systemvariables-Path-Variable
     Echo --https://i.imgur.com/KM132c7.png
     Echo ----------------------------------------------------------------
-   python.exe main.py -i input.txt -o out.simc -sim all
+   python.exe main.py -i input.txt -o out.simc -sim all   
+   Echo --------------------------------------------------------------------------
+   python.exe simc-cmp.py
    pause
 )
