@@ -218,7 +218,7 @@ class settings():
     # ALL OPTIONS BELOW THIS VARIABLE ARE AFFECTED BY THIS SWITCH!!!
     #               YOU HAVE TO KNOW WHAT YOU DO!
     # ----------------------------------------------------------------------
-    skip_questions = False
+    skip_questions = True
 
     # automation of dialogs
     # 1 or 2
