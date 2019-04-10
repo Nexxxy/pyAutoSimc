@@ -113,7 +113,7 @@ class settings():
     # Remove all entries if you want to be asked at each stage
     default_target_error = {1: 1.0,
                             2: 0.1,
-                            3: 0.03}
+                            3: 0.02}
 
     # Profile grabbing method to determine the "best" profiles when going from stage to stage.
     # There are 2 modes available:

@@ -1,29 +1,43 @@
-[Profile]
-priest=TestProfile
-spec=shadow
-level=110
-race=goblin
+# SimC Addon 1.11.1
+# Requires SimulationCraft 815-01 or newer
+
+mage="Nexxyana"
+level=120
+race=lightforged_draenei
+region=eu
+server=blackmoore
 role=spell
-position=back
-talents=1211231
-artifact=47:0:0:0:0:764:1:765:1:766:1:767:4:768:1:769:1:770:1:771:4:772:4:773:4:774:4:775:4:776:4:777:4:778:4:779:1:1347:1:1381:1:1573:4:1574:1:1575:1:1576:25:1650:1
-crucible=1739:1770:1573/1739:1770:1573/1739:1780:773
+professions=alchemy=150/herbalism=150
+talents=1313133
+spec=frost
 
 
-[Gear]
-head=T21--,id=152156,bonus_id=3610/1472/3528|T20--,id=147165,bonus_id=3563/41/1512/3528
-neck=,id=137536,enchant_id=5437,bonus_id=3418/1587/3337
-shoulder=,id=152354,enchant_id=5929,bonus_id=3614/1492/3337
-back=T21--,id=152154,enchant_id=5436,bonus_id=3610/1472/3528|T20--,id=147163,enchant_id=5436,bonus_id=3562/1808/1497/3528,gem_id=151583
-chest=,id=151947,bonus_id=3610/1502/3337
-wrist=,id=134437,bonus_id=3418/1607/3337
-hands=T21--,id=152155,bonus_id=3611/40/1497/3336|T20--,id=147164,enchant_id=5444,bonus_id=3563/1517/3336
-waist=L--,id=132864,bonus_id=1811/3630
-legs=T21--,id=152157,bonus_id=3611/1487/3528|T20--,id=147166,bonus_id=3564/1497/3337
-feet=,id=136774,bonus_id=3418/1808/1597/3337,gem_id=151583
-finger1=,id=152284,enchant_id=5428,bonus_id=3610/1808/1477/3336,gem_id=151583
-finger2=L--,id=132452,enchant_id=5428,bonus_id=3459/3630,gem_id=151583
-trinket1=,id=154177,bonus_id=3984/3988
-trinket2=,id=151971,bonus_id=3611/41/1487/3528
-main_hand=,id=128827,bonus_id=740,relic_id=3611:1487:3528/3611:1487:3528/3418:1607:3337,gem_id=152055/152028/151294
-off_hand=,id=133958,relic_id=0/0,gem_id=0/0/0/0
+head=,id=158315,bonus_id=5448/1587/4786/5420,context=35,azerite_powers=225/170/30/85
+neck=,id=158075,bonus_id=4936/4929/5814/1560,azerite_level=45
+shoulder=,id=159254,bonus_id=5448/1587/4786/5421,context=35,azerite_powers=170/196/31/468
+back=,id=165512,bonus_id=4799/1522/4786,context=5
+chest=,id=158301,bonus_id=5448/1587/4786/5419,context=35,azerite_powers=170/505/31/87
+wrist=,id=159282,bonus_id=5010/1582/4783,context=35
+hands=,id=159272,enchant_id=5932,bonus_id=5010/1597/4784,context=16
+waist=,id=159239,bonus_id=5010/42/1587/4784,context=35
+legs=,id=158350,bonus_id=5010/43/1582/4783,context=35
+feet=,id=159311,gem_id=154126,bonus_id=5010/4802/1572/4786,context=16
+finger1=,id=162548,enchant_id=5942,bonus_id=5010/1577/4783,context=16
+finger2=,id=165567,enchant_id=5942,gem_id=154126,bonus_id=4799/1808/1522/4786,context=5
+trinket1=,id=165928,context=13
+trinket2=,id=165571,bonus_id=4799/1522/4786,context=5
+main_hand=,id=159137,enchant_id=5949,bonus_id=5010/1582/4783,context=35
+off_hand=,id=158322,bonus_id=5010/42/1582/4783,context=35
+
+
+
+
+### Gear from Bags
+#
+# Bindungen des schlängelnden Stroms (410)
+# wrist=,id=159263,bonus_id=5010/40/1582/4783,context=35
+
+
+# Stacks of reorigination array based on hidden quest completion
+# bfa.reorigination_array_stacks=10
+# bfa.zuldazar="1"

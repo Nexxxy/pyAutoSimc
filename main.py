@@ -767,6 +767,9 @@ def build_profile_simc_addon(args):
                     if line.startswith("# bfa.reorigination_array_stacks"):
                         splitted = line.split("=", 1)[1].rstrip().lstrip()
                         player_profile.simc_options["bfa.reorigination_array_stacks"] = splitted
+                    if line.startswith("# bfa.zuldazar"):
+                        splitted = line.split("=", 1)[1].rstrip().lstrip()
+                        player_profile.simc_options["bfa.zuldazar"] = splitted
                     if line.startswith("# SimC Addon") or line.startswith(
                             "# 8.0 Note:") or line == "" or line == "\n":
                         continue
@@ -960,14 +963,14 @@ def permutate(args, player_profile):
     gearInBags = player_profile.simc_options.get('gearInBag')
 
     # concatenate gear in bags to normal gear-list
-    for b in gearInBags:
-        if b in gear:
+    for b in gearInBags:          
+        if b in gear:            
             if len(gear[b]) > 0:
                 currentGear = gear[b][0]
                 if b == "finger" or b == "trinket":
                     currentGear = currentGear + "|" + gear[b][1]
                 for foundGear in gearInBags.get(b):
-                    currentGear = currentGear + "|" + foundGear
+                    currentGear = currentGear + "|" + foundGear                
                 gear[b] = currentGear
 
     for gear_slot in gear_slots:
@@ -977,12 +980,12 @@ def permutate(args, player_profile):
             if entry in gear:
                 if len(gear[entry]) > 0:
                     for s in gear[entry].split("|"):
-                        parsed_gear[slot_base_name].append(Item(slot_base_name, s))
+                        parsed_gear[slot_base_name].append(Item(slot_base_name, s))                        
         if len(parsed_gear[slot_base_name]) == 0:
             # We havent found any items for that slot, add empty dummy item
             parsed_gear[slot_base_name] = [Item(slot_base_name, "")]
 
-    logging.debug(_("Parsed gear: {}").format(parsed_gear))
+    logging.debug(_("Parsed gear: {}").format(parsed_gear))    
 
     if args.gems is not None:
         splitted_gems = build_gem_list(args.gems)

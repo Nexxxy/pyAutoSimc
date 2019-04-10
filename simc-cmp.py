@@ -68,6 +68,7 @@ class dto_player() :
         except :
             pass
         #print(data)    
+        #print(self.playername)
         #list(self.config.keys())[0]
         return
     
@@ -112,19 +113,24 @@ class dto_player() :
                     print ("diffslot : " + slot , "\tchange id : " + self.items[slot].attribute["id"] + " -> "  + other.items[slot].attribute["id"] , "(" + other.items[slot].attribute["name"] + ")")
                     #print ("diff attribute : " + itemattribute + " diff : " + self.items[slot].attribute[itemattribute] + " -> " + other.items[slot].attribute[itemattribute])
                     break; 
+        # part 2 : Talentscanning
+        if (self.config["talents"] != other.config["talents"]) :
+            print ("Talents have been changed from ", self.config["talents"], " to " , other.config["talents"])
+            diff = True
         if (diff != True) :
-            print ("\t\t-- This is your current eq -- ")
+            print ("\t\t-- This is your current eq -- ")       
         return;
 #----------------------------------------------------------------------------------
 ###################################################################################
 #----------------------------------------------------------------------------------
 
 class eStatus(Enum):
-    SEARCH_DIV = 1
-    SEARCH_NAME_IN_PLAYER_SECTION = 2    
-    PRINT_PLAYER_NAME = 3
-    SEARCH_PROFILE_TEXT_SECTION = 4  
-    PRINT_PROFILE_TEXT = 5
+    SEARCH_DIV_PLAYER_SECTION = 1
+    SEARCH_DIV_PROFILE_SECTION = 2
+    SEARCH_NAME_IN_PLAYER_SECTION = 3
+    PRINT_PLAYER_NAME = 4
+    SEARCH_PROFILE_TEXT_SECTION = 5
+    PRINT_PROFILE_TEXT = 6
     
 #----------------------------------------------------------------------------------
 ###################################################################################
@@ -138,18 +144,20 @@ playerList = []
                                     # Html Parsing Class
 
 class SimCHTMLParser(HTMLParser):   
-    def __init__(self):                         ## Konstruktor
-        super().__init__()                      # Superkonstruktor
-        self.status = eStatus.SEARCH_DIV    # lokale Var
-        self.divCounter = 0                     # div counter        
+    def __init__(self):                                 ## Konstruktor
+        super().__init__()                              # Superkonstruktor
+        self.status = eStatus.SEARCH_DIV_PLAYER_SECTION    # lokale Var
+        self.divCounter = 0                             # div counter                
         
     #------------------------------------------------------------------------------
     
     def handle_starttag(self, tag, attrs):  
         
         #print(self.status)
-        if (self.status == eStatus.SEARCH_DIV) :
-            self.handle_starttag_search_div(tag, attrs)
+        if (self.status == eStatus.SEARCH_DIV_PLAYER_SECTION) :
+            self.handle_starttag_search_div_player(tag, attrs)
+        elif (self.status == eStatus.SEARCH_DIV_PROFILE_SECTION) :
+            self.handle_starttag_search_div_profile(tag, attrs)
         elif (self.status == eStatus.SEARCH_NAME_IN_PLAYER_SECTION) :    
             self.handle_starttag_search_player_name(tag, attrs)
         elif (self.status == eStatus.SEARCH_PROFILE_TEXT_SECTION):
@@ -160,20 +168,29 @@ class SimCHTMLParser(HTMLParser):
         
     #------------------------------------------------------------------------------
     
-    def handle_starttag_search_div(self, tag, attrs) :
+    def handle_starttag_search_div_player(self, tag, attrs) :
         if (tag == "div") :            
             #print(attrs)            
             for element in attrs:                     
                 if ('class' in element) :                    
-                    if (str(element[1]) == "player-section profile") :
-                        #print("Found Profile Section")
+                    if (str(element[1]) == "player section grouped-first" or str(element[1]) == "player section section-open") :
+                        #print(element)  
+                        dprint("Found Player Section");
+                        self.status = eStatus.SEARCH_NAME_IN_PLAYER_SECTION
+                        return      
+
+    #------------------------------------------------------------------------------
+    
+    def handle_starttag_search_div_profile(self, tag, attrs) :
+        if (tag == "div") :            
+            #print(attrs)            
+            for element in attrs:                     
+                if ('class' in element) :                    
+                    if (str(element[1]) == "player-section profile") :                        
+                        dprint("Found Profile Section")
                         self.status = eStatus.SEARCH_PROFILE_TEXT_SECTION
                         #print("Class: " + str(element[1]))
-                    elif (str(element[1]) == "player section grouped-first") :
-                        #print(element)  
-                        #print("Found Player Section");
-                        self.status = eStatus.SEARCH_NAME_IN_PLAYER_SECTION
-                        return                     
+                        return
             
                          
     #------------------------------------------------------------------------------
@@ -205,9 +222,9 @@ class SimCHTMLParser(HTMLParser):
                 dprint(curPlayer.playername)
                 for key in curPlayer.items.keys() :
                     dprint(key, curPlayer.items[key].attribute)                                    
-                dprint(curPlayer.config)               
+                dprint(curPlayer.config)                    
                 
-                self.resetStatus();        
+                self.resetStatus()
         return
         
     #------------------------------------------------------------------------------
@@ -221,7 +238,11 @@ class SimCHTMLParser(HTMLParser):
             newPlayer = dto_player()
             newPlayer.extractNameAndDps(data)
             playerList.append(newPlayer)
-            #print(data);
+            self.status = eStatus.SEARCH_DIV_PROFILE_SECTION             #-> will be set in endtag <p>
+            dprint("->", data);
+            return;
+        elif (self.status == eStatus.SEARCH_DIV_PROFILE_SECTION) :
+            return;
         elif (self.status == eStatus.PRINT_PROFILE_TEXT) :                
             # if there is only 1 dps entry in that html it wont create a entry in playerList -> thus we have to create it
             if (len(playerList) == 0) :
@@ -237,7 +258,7 @@ class SimCHTMLParser(HTMLParser):
             
 
     def resetStatus(self) :
-        self.status = eStatus.SEARCH_DIV
+        self.status = eStatus.SEARCH_DIV_PLAYER_SECTION
         self.divCounter = 0
         
         
@@ -296,6 +317,7 @@ parser = SimCHTMLParser()
 parser.feed(data)
 
 ## Read Input.txt
+print ("Parsing input.txt")
 currentEquippedPlayer = dto_player();
 currentEquippedPlayer.playername = "current Equip"
 parseInputTxtFile(currentEquippedPlayer, "input.txt");
